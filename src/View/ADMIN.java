@@ -605,7 +605,9 @@ public class ADMIN extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-            	
+            	dispose();
+            	TKDoanhThu tk = new TKDoanhThu();
+            	tk.setVisible(true);
             }
         });
         jMenuItem_HangBay.addActionListener(new ActionListener() {

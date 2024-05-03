@@ -859,12 +859,12 @@ public class NguoiDung extends JFrame {
 					JOptionPane.showMessageDialog(null, "Chọn loại ghế cần đặt.");
 				} else if (comboBox_BusinessClass.getSelectedIndex() == 0
 						&& comboBox_EconomyClass.getSelectedIndex() == 0) {
-					NewLabel_giave.setText("120.000.000 VND");
+					NewLabel_giave.setText("150$");
 				} else if (comboBox_BusinessClass.getSelectedIndex() == 0
 						&& comboBox_FirstClass.getSelectedIndex() == 0) {
-					NewLabel_giave.setText("1.500.000 VND");
+					NewLabel_giave.setText("80$");
 				} else if (comboBox_EconomyClass.getSelectedIndex() == 0) {
-					NewLabel_giave.setText("800.000 VND");
+					NewLabel_giave.setText("500$");
 				} else {
 					JOptionPane.showMessageDialog(null, "Chỉ được chọn một loại ghế");
 				}

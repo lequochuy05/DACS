@@ -14,7 +14,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class XuHuongDAO {
 	private LichBayDAO lichBayDAO;
@@ -126,5 +128,36 @@ public class XuHuongDAO {
 		}
 		return soLuong;
 	}
+	
+	
+	//--//
+	//TK Doanh thu
+	public Map<Integer, Double> thongKeDoanhThuTheoNam() {
+        Map<Integer, Double> doanhThuTheoNam = new HashMap<>();
+        try {
+            Connection con = JDCBCUtil.getConnection();
+            PreparedStatement pst = con.prepareStatement(
+                "SELECT SUBSTRING_INDEX(lb.ngayBay, '/', -1) AS nam,\n"
+                + "       SUM(CASE WHEN kh.loaiGhe = 'EconomyClass' THEN 80\n"
+                + "                WHEN kh.loaiGhe = 'BusinessClass' THEN 500\n"
+                + "                WHEN kh.loaiGhe = 'FirstClass' THEN 150\n"
+                + "                ELSE 0 END) AS DoanhThu\n"
+                + "FROM lichBay lb\n"
+                + "INNER JOIN dsKhachHang kh ON lb.MaChuyenbay = kh.maChuyenBay \n"
+                + "WHERE kh.tinhTrang = 'Đã xác nhận'\n"
+                + "GROUP BY Nam;"
+            );
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                int nam = rs.getInt("Nam");
+                double doanhThu = rs.getDouble("DoanhThu");
+                doanhThuTheoNam.put(nam, doanhThu);
+            }
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return doanhThuTheoNam;
+    }
 
 }
